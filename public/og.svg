@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
+  <rect width="100%" height="100%" fill="white"/>
+
+  <text x="50%" y="45%" font-size="80"
+  text-anchor="middle"
+  fill="black"
+  font-family="Arial, sans-serif"
+  font-weight="bold">
+  VelTrade
+  </text>
+
+  <text x="50%" y="55%" font-size="36"
+  text-anchor="middle"
+  fill="#555"
+  font-family="Arial, sans-serif">
+  Crypto & Trading Knowledge Base
+  </text>
+
+  <text x="50%" y="65%" font-size="28"
+  text-anchor="middle"
+  fill="#888"
+  font-family="Arial, sans-serif">
+  veltrade.co
+  </text>
+
+</svg>
