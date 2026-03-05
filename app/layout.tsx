@@ -46,7 +46,7 @@ export default function RootLayout({
       <Script
         id="adsense-script"
         async
-        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT}`}
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3524390472634837`}
         crossOrigin="anonymous"
         strategy="afterInteractive"
       />

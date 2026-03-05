@@ -34,7 +34,7 @@ export default function AdUnit({
   variant = "inArticle",
   fallback,
 }: AdUnitProps) {
-  const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
+  const client = "ca-pub-3524390472634837";
 
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const [showFallback, setShowFallback] = useState(false);
