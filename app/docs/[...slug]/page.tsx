@@ -9,6 +9,7 @@ import { NAV } from "@/lib/nav";
 import { getExistingDocHrefs } from "@/lib/content-index.server";
 import { filterNavByExisting } from "@/lib/nav-filter";
 import React from "react";
+import AdUnit from "@/components/AdUnit";
 
 type PropsWithChildren = { children?: React.ReactNode };
 
@@ -120,6 +121,9 @@ export default async function DocPage({
         <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] xl:grid-cols-[260px_1fr_260px]">
           <div className="hidden lg:block">
             <Sidebar nav={filteredNav} />
+            <div className="mt-6">
+              <AdUnit slot="4444444444" />
+            </div>
           </div>
 
           <main className="min-h-[calc(100vh-56px)] px-4 sm:px-6 py-8 sm:py-10">
@@ -138,7 +142,7 @@ export default async function DocPage({
                 {doc.description ? (
                   <p className="mt-3 text-zinc-600">{doc.description}</p>
                 ) : null}
-
+                <AdUnit slot="1111111111" />
                 <div className="mt-4 text-sm text-zinc-500">
                   {doc.readingMinutes} min read
                   {doc.lastUpdated ? ` • Last updated ${doc.lastUpdated}` : ""}
@@ -148,6 +152,7 @@ export default async function DocPage({
               <article className="prose prose-zinc max-w-none prose-sm sm:prose-base">
                 <MDXRemote source={doc.content} components={components} />
               </article>
+              <AdUnit slot="2222222222" />
               <div className="mt-12 border-t border-zinc-200 pt-6">
                 <div className="text-sm font-semibold">Continue learning</div>
 
@@ -167,6 +172,7 @@ export default async function DocPage({
                   </a>
                 </div>
               </div>
+              <AdUnit slot="3333333333" />
               <div className="mt-10 rounded-2xl border border-zinc-200 bg-white p-5">
                 <div className="text-sm font-semibold">Educational purpose</div>
                 <p className="mt-2 text-sm text-zinc-600">

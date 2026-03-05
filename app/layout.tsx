@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import CommandPalette from "@/components/CommandPalette";
 import Footer from "@/components/Footer";
 import "./globals.css";
+import Script from "next/script";
 
 export const metadata = {
   metadataBase: new URL("https://veltrade.co"),
@@ -42,6 +43,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Script
+        id="adsense-script"
+        async
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT}`}
+        crossOrigin="anonymous"
+        strategy="afterInteractive"
+      />
       <body className="min-h-screen bg-white text-zinc-900">
         {children}
         <Footer />
