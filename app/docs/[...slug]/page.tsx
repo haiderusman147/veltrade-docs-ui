@@ -121,9 +121,6 @@ export default async function DocPage({
         <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] xl:grid-cols-[260px_1fr_260px]">
           <div className="hidden lg:block">
             <Sidebar nav={filteredNav} />
-            <div className="mt-6">
-              <AdUnit slot="4444444444" />
-            </div>
           </div>
 
           <main className="min-h-[calc(100vh-56px)] px-4 sm:px-6 py-8 sm:py-10">
