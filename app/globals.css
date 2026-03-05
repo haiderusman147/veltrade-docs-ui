@@ -1,1 +1,18 @@
 @import "tailwindcss";
+/* restore list styles inside prose even without typography plugin */
+.prose ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.prose ol {
+  list-style: decimal;
+  padding-left: 1.25rem;
+}
+.prose li {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+/* globals.css */
+:where(h2, h3, h4)[id] {
+  scroll-margin-top: 80px; /* header height + a little breathing room */
+}

@@ -1,4 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180">
-  <rect width="100%" height="100%" fill="white"/>
-  <text x="50%" y="55%" font-size="70" text-anchor="middle" fill="black" font-family="Arial, sans-serif">V</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+
+  <rect width="180" height="180" rx="30" fill="#020617"/>
+
+  <!-- V shape -->
+  <path d="M35 40 L65 40 L90 120 L115 40 L145 40 L100 145 L80 145 Z"
+        fill="#22c55e"/>
+
+  <!-- Candlestick inside V -->
+  <rect x="87" y="65" width="6" height="60" rx="3" fill="#ffffff"/>
+  <rect x="82" y="85" width="16" height="30" rx="6" fill="#16a34a"/>
+
+  <!-- T -->
+  <rect x="130" y="55" width="14" height="80" rx="6" fill="#3b82f6"/>
+  <rect x="108" y="55" width="58" height="14" rx="6" fill="#3b82f6"/>
+
 </svg>

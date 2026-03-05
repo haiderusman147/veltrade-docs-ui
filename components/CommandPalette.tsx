@@ -108,7 +108,9 @@ export default function CommandPalette() {
             placeholder="Search titles, headings, and topics…"
             className="w-full rounded-md border border-zinc-200 px-3 py-2 text-sm outline-none focus:border-zinc-400"
           />
-          <div className="mt-2 text-xs text-zinc-500">Press Esc to close</div>
+          <div className="mt-2 hidden md:block text-xs text-zinc-500">
+            Press Esc to close
+          </div>
         </div>
 
         <div className="max-h-[460px] overflow-auto p-2">

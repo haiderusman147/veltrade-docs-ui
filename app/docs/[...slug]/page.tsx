@@ -1,17 +1,27 @@
+import AdUnit from "@/components/AdUnit";
 import Sidebar from "@/components/Sidebar";
 import Toc from "@/components/TOC";
 import TopBar from "@/components/TopBar";
+import { getExistingDocHrefs } from "@/lib/content-index.server";
 import { getDocBySlug } from "@/lib/docs.server";
+import { NAV } from "@/lib/nav";
+import { filterNavByExisting } from "@/lib/nav-filter";
 import { slugify } from "@/lib/toc";
 import type { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { NAV } from "@/lib/nav";
-import { getExistingDocHrefs } from "@/lib/content-index.server";
-import { filterNavByExisting } from "@/lib/nav-filter";
+import Link from "next/link";
 import React from "react";
-import AdUnit from "@/components/AdUnit";
-
 type PropsWithChildren = { children?: React.ReactNode };
+
+function flattenNav(nav: any[]) {
+  const out: { title: string; href: string }[] = [];
+  for (const section of nav) {
+    for (const item of section.children ?? []) {
+      if (item?.href) out.push({ title: item.title, href: item.href });
+    }
+  }
+  return out;
+}
 
 function toText(node: React.ReactNode): string {
   if (node == null) return "";
@@ -112,7 +122,12 @@ export default async function DocPage({
 
   const existing = getExistingDocHrefs();
   const filteredNav = filterNavByExisting(NAV, existing);
+  const flat = flattenNav(filteredNav);
+  const currentHref = "/docs/" + slug.join("/");
+  const idx = flat.findIndex((x) => x.href === currentHref);
 
+  const prev = idx > 0 ? flat[idx - 1] : null;
+  const next = idx >= 0 && idx < flat.length - 1 ? flat[idx + 1] : null;
   return (
     <div>
       <TopBar />
@@ -153,20 +168,44 @@ export default async function DocPage({
               <div className="mt-12 border-t border-zinc-200 pt-6">
                 <div className="text-sm font-semibold">Continue learning</div>
 
-                <div className="mt-3 flex flex-wrap gap-3 text-sm">
-                  <a
-                    href="/docs"
-                    className="rounded-lg border border-zinc-200 px-3 py-1.5 hover:bg-zinc-50"
-                  >
-                    Browse all docs
-                  </a>
+                <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {prev ? (
+                    <Link
+                      href={prev.href}
+                      className="rounded-xl border border-zinc-200 p-4 hover:bg-zinc-50"
+                    >
+                      <div className="text-xs text-zinc-500">Previous</div>
+                      <div className="mt-1 text-sm font-semibold text-zinc-900">
+                        {prev.title}
+                      </div>
+                    </Link>
+                  ) : (
+                    <div className="rounded-xl border border-zinc-200 p-4 opacity-50">
+                      <div className="text-xs text-zinc-500">Previous</div>
+                      <div className="mt-1 text-sm font-semibold text-zinc-900">
+                        Not available
+                      </div>
+                    </div>
+                  )}
 
-                  <a
-                    href="/docs/introduction"
-                    className="rounded-lg border border-zinc-200 px-3 py-1.5 hover:bg-zinc-50"
-                  >
-                    Start with introduction
-                  </a>
+                  {next ? (
+                    <Link
+                      href={next.href}
+                      className="rounded-xl border border-zinc-200 p-4 hover:bg-zinc-50"
+                    >
+                      <div className="text-xs text-zinc-500">Next</div>
+                      <div className="mt-1 text-sm font-semibold text-zinc-900">
+                        {next.title}
+                      </div>
+                    </Link>
+                  ) : (
+                    <div className="rounded-xl border border-zinc-200 p-4 opacity-50">
+                      <div className="text-xs text-zinc-500">Next</div>
+                      <div className="mt-1 text-sm font-semibold text-zinc-900">
+                        Not available
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
               <AdUnit slot="3333333333" />
@@ -182,7 +221,7 @@ export default async function DocPage({
             </div>
           </main>
 
-          <div className="hidden xl:block">
+          <div className="hidden xl:block sticky top-14 h-[calc(100vh-56px)] ">
             <Toc items={doc.toc} />
           </div>
         </div>
