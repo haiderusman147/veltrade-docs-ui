@@ -76,26 +76,50 @@ export default function AdUnit({
       return;
     }
 
-    // Try to request an ad
-    try {
-      window.adsbygoogle = window.adsbygoogle || [];
-      window.adsbygoogle.push({});
-    } catch {
-      setShowFallback(true);
-      return;
-    }
+    let tRetry: number;
+    let tFill: number;
 
-    // After a short delay, check if the ad filled
-    const t = window.setTimeout(() => {
+    const pushAd = () => {
       const el = wrapRef.current;
       if (!el) return;
 
-      // If AdSense doesn't fill, it often remains too small/empty
-      const filled = el.offsetHeight > 40;
-      if (!filled) setShowFallback(true);
-    }, 1400);
+      // Avoid "No slot size for availableWidth=0" error
+      if (el.offsetWidth === 0) {
+        tRetry = window.setTimeout(pushAd, 100);
+        return;
+      }
 
-    return () => window.clearTimeout(t);
+      const insElement = el.querySelector("ins.adsbygoogle");
+      if (
+        insElement &&
+        insElement.getAttribute("data-adsbygoogle-status") === "done"
+      ) {
+        return;
+      }
+
+      try {
+        window.adsbygoogle = window.adsbygoogle || [];
+        window.adsbygoogle.push({});
+      } catch (error) {
+        console.error("AdSense error:", error);
+        setShowFallback(true);
+        return;
+      }
+
+      // After a short delay, check if the ad filled
+      tFill = window.setTimeout(() => {
+        if (wrapRef.current && wrapRef.current.offsetHeight <= 40) {
+          setShowFallback(true);
+        }
+      }, 1400);
+    };
+
+    pushAd();
+
+    return () => {
+      window.clearTimeout(tRetry);
+      window.clearTimeout(tFill);
+    };
   }, [client, slot]);
 
   return (
@@ -118,7 +142,10 @@ export default function AdUnit({
 
       <div className="px-4 pb-4 pt-2">
         {!showFallback ? (
-          <div ref={wrapRef} className="min-h-[140px]">
+          <div
+            ref={wrapRef}
+            className="min-h-[140px] w-full overflow-hidden block"
+          >
             <ins
               className="adsbygoogle"
               style={{ display: "block" }}

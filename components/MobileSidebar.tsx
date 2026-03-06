@@ -51,7 +51,7 @@ export default function MobileSidebar({
         </div>
 
         <div className="h-[calc(100%-56px)] overflow-auto">
-          <Sidebar nav={nav} mobile />
+          <Sidebar nav={nav} mobile onCloseMobile={onClose} />
         </div>
       </div>
     </div>

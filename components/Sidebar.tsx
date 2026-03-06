@@ -163,10 +163,12 @@ function NavLink({
   title,
   href,
   depth,
+  onLinkClick,
 }: {
   title: string;
   href: string;
   depth: number;
+  onLinkClick?: () => void;
 }) {
   const pathname = usePathname();
   const isActive = pathname === href;
@@ -177,7 +179,10 @@ function NavLink({
   return (
     <Link
       href={href}
-      scroll={false}
+      scroll={true}
+      onClick={() => {
+        onLinkClick?.();
+      }}
       className={[
         "group flex items-center gap-3 rounded-full transition-colors",
         isTopLevel ? "px-4 py-2.5 text-[14px]" : "px-4 py-2 text-[13px]",
@@ -208,11 +213,13 @@ function NavNode({
   depth,
   openMap,
   setOpenMap,
+  onLinkClick,
 }: {
   item: NavItem;
   depth: number;
   openMap: Record<string, boolean>;
   setOpenMap: React.Dispatch<React.SetStateAction<Record<string, boolean>>>;
+  onLinkClick?: () => void;
 }) {
   const pathname = usePathname();
 
@@ -235,7 +242,14 @@ function NavNode({
   }, [hasChildren, item.children, pathname]);
 
   if (item.href) {
-    return <NavLink title={item.title} href={item.href} depth={depth} />;
+    return (
+      <NavLink
+        title={item.title}
+        href={item.href}
+        depth={depth}
+        onLinkClick={onLinkClick}
+      />
+    );
   }
 
   if (!hasChildren) return null;
@@ -265,6 +279,7 @@ function NavNode({
                     depth={depth + 1}
                     openMap={openMap}
                     setOpenMap={setOpenMap}
+                    onLinkClick={onLinkClick}
                   />
                 ))}
               </div>
@@ -297,6 +312,7 @@ function NavNode({
                   depth={depth + 1}
                   openMap={openMap}
                   setOpenMap={setOpenMap}
+                  onLinkClick={onLinkClick}
                 />
               ))}
             </div>
@@ -310,9 +326,11 @@ function NavNode({
 export default function Sidebar({
   nav = [],
   mobile = false,
+  onCloseMobile,
 }: {
   nav?: NavItem[];
   mobile?: boolean;
+  onCloseMobile?: () => void;
 }) {
   const [openMap, setOpenMap] = useState<Record<string, boolean>>({});
 
@@ -335,6 +353,11 @@ export default function Sidebar({
               depth={0}
               openMap={openMap}
               setOpenMap={setOpenMap}
+              onLinkClick={() => {
+                if (mobile && onCloseMobile) {
+                  onCloseMobile();
+                }
+              }}
             />
           ))}
         </div>
