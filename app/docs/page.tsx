@@ -47,8 +47,6 @@ export default function DocsIndexPage() {
 
   return (
     <div>
-      <TopBar />
-
       <main className="mx-auto max-w-[1100px] px-4 sm:px-6 py-10 sm:py-14">
         <div className="max-w-2xl">
           <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
@@ -107,7 +105,7 @@ export default function DocsIndexPage() {
           <div className="flex items-end justify-between">
             <h2 className="text-lg font-semibold">Categories</h2>
             <Link
-              href="/docs/getting-started/glossary"
+              href="/docs"
               className="text-sm text-zinc-600 hover:text-zinc-900 hover:underline"
             >
               Glossary →
