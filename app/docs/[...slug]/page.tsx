@@ -147,7 +147,7 @@ export default async function DocPage({
   const next = idx >= 0 && idx < flat.length - 1 ? flat[idx + 1] : null;
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-[1fr_150px]">
+    <div className="grid grid-cols-1 xl:grid-cols-[1fr_220px]">
       <main className="min-h-[calc(100vh-56px)] px-4 sm:px-6 py-8 sm:py-10">
         <div className="mx-auto max-w-[760px]">
           <script

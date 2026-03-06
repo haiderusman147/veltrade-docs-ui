@@ -61,10 +61,10 @@ export default function Toc({ items }: { items: TocItem[] }) {
 
   return (
     <aside className="hidden xl:block">
-      <div className="sticky top-14 h-[calc(100vh-56px)] w-[150px] overflow-auto border-l border-zinc-200 px-4 py-6">
-        <div className="text-sm font-semibold">On this page</div>
+      <div className="sticky top-14 h-[calc(100vh-56px)] w-[220px] overflow-auto border-l border-zinc-200 px-4 py-6">
+        <div className="text-[13px] font-semibold">On this page</div>
 
-        <nav className="mt-3 space-y-2 text-sm">
+        <nav className="mt-3 space-y-2 text-[13px]">
           {items.map((it) => {
             const isActive = it.id === active;
 

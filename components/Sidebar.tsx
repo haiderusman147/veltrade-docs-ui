@@ -180,7 +180,7 @@ function NavLink({
       scroll={false}
       className={[
         "group flex items-center gap-3 rounded-full transition-colors",
-        isTopLevel ? "px-4 py-3 text-[15px]" : "px-4 py-2.5 text-sm",
+        isTopLevel ? "px-4 py-2.5 text-[14px]" : "px-4 py-2 text-[13px]",
         isActive
           ? "bg-sky-100 text-zinc-900"
           : "text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900",
@@ -249,7 +249,7 @@ function NavNode({
           <button
             type="button"
             onClick={() => setOpenMap((p) => ({ ...p, [key]: !isOpen }))}
-            className="flex w-full items-center gap-2 px-3 py-2 text-left text-[13px] font-medium text-zinc-600 hover:text-zinc-800"
+            className="flex w-full items-center gap-2 px-3 py-2 text-left text-[12.5px] font-medium text-zinc-600 hover:text-zinc-800"
           >
             <Chevron open={isOpen} />
             <span>{item.title}</span>
@@ -277,7 +277,7 @@ function NavNode({
             type="button"
             onClick={() => setOpenMap((p) => ({ ...p, [key]: !isOpen }))}
             className={[
-              "flex w-full items-center gap-2 rounded-full px-4 py-2.5 text-left text-sm transition-colors",
+              "flex w-full items-center gap-2 rounded-full px-4 py-2 text-left text-[13px] transition-colors",
               childHasActive
                 ? "bg-zinc-100 text-zinc-900"
                 : "text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900",
