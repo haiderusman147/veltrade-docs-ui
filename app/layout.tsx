@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import CommandPalette from "@/components/CommandPalette";
 import Footer from "@/components/Footer";
 import "./globals.css";
