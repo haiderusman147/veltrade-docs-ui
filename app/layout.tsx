@@ -1,9 +1,7 @@
-import type { Metadata } from "next";
 import CommandPalette from "@/components/CommandPalette";
 import Footer from "@/components/Footer";
-import "./globals.css";
 import Script from "next/script";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import "./globals.css";
 
 export const metadata = {
   metadataBase: new URL("https://veltrade.co"),
@@ -53,7 +51,6 @@ export default function RootLayout({
       />
       <body className="min-h-screen bg-white text-zinc-900">
         {children}
-        <SpeedInsights />
         <Footer />
         <CommandPalette />
       </body>

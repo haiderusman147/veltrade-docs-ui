@@ -1,10 +1,15 @@
 import TopBar from "@/components/TopBar";
+import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
   description: "Terms of service for VelTrade.",
   alternates: { canonical: "/terms" },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title: "VelTrade Terms of Service",
     description: "Terms of service for VelTrade.",
@@ -30,32 +35,41 @@ export default function TermsPage() {
           <p>
             These Terms of Service govern your use of{" "}
             <strong>{siteName}</strong> at <strong>{siteUrl}</strong>. By
-            accessing or using the site, you agree to these terms.
+            accessing or using this website, you agree to these terms.
           </p>
 
           <h2>Educational purpose</h2>
           <p>
-            The content on this website is provided for educational purposes
-            only and does not constitute financial, investment, legal, or tax
-            advice. You are responsible for your own decisions and actions.
+            All content provided on this website is for educational purposes
+            only. It does not constitute financial, investment, legal, or tax
+            advice. You are solely responsible for your decisions and actions.
           </p>
 
           <h2>No guarantees</h2>
           <p>
-            Markets involve risk. We do not guarantee accuracy, completeness, or
-            outcomes from using any information on this site.
+            Financial markets involve risk. While efforts are made to keep
+            information accurate and up to date, no guarantees are provided
+            regarding completeness, reliability, or outcomes from using the
+            content.
           </p>
 
           <h2>External links</h2>
           <p>
-            This website may link to third-party sites. We are not responsible
-            for their content, policies, or practices.
+            This website may include links to third-party websites. VelTrade is
+            not responsible for the content, policies, or practices of external
+            sites.
           </p>
 
           <h2>Acceptable use</h2>
           <p>
-            You agree not to misuse the site, attempt unauthorized access, or
-            disrupt site functionality.
+            You agree not to misuse the website, attempt unauthorized access, or
+            interfere with the normal operation of the site.
+          </p>
+
+          <h2>Changes to terms</h2>
+          <p>
+            These terms may be updated over time. Continued use of the website
+            after changes are published implies acceptance of the updated terms.
           </p>
 
           <h2>Contact</h2>
@@ -63,6 +77,29 @@ export default function TermsPage() {
             If you have questions about these terms, contact{" "}
             <a href={`mailto:${contactEmail}`}>{contactEmail}</a>.
           </p>
+        </div>
+
+        <div className="mt-10 border-t border-zinc-200 pt-6 flex flex-wrap gap-3">
+          <Link
+            href="/about"
+            className="rounded-lg border border-zinc-200 px-4 py-2 text-sm hover:bg-zinc-50"
+          >
+            About
+          </Link>
+
+          <Link
+            href="/contact"
+            className="rounded-lg border border-zinc-200 px-4 py-2 text-sm hover:bg-zinc-50"
+          >
+            Contact
+          </Link>
+
+          <Link
+            href="/privacy-policy"
+            className="rounded-lg border border-zinc-200 px-4 py-2 text-sm hover:bg-zinc-50"
+          >
+            Privacy Policy
+          </Link>
         </div>
       </main>
     </div>

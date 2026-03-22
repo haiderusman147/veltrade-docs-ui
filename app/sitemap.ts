@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 import { getAllDocMetas } from "@/lib/docs.server";
 
 function getBaseUrl() {
-  const prod = "https://veltrade.co";
-  if (process.env.NODE_ENV !== "production") return "http://localhost:3000";
-  return prod;
+  return process.env.NODE_ENV === "production"
+    ? "https://veltrade.co"
+    : "http://localhost:3000";
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -34,7 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${base}/contact`,
       lastModified: now,
-      changeFrequency: "yearly",
+      changeFrequency: "monthly",
       priority: 0.3,
     },
     {

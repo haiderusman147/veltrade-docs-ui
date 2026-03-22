@@ -1,12 +1,16 @@
 import TopBar from "@/components/TopBar";
-import Link from "next/link";
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About VelTrade",
   description:
     "Learn about VelTrade and the mission behind this educational trading and crypto knowledge base.",
   alternates: { canonical: "/about" },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title: "About VelTrade",
     description:
@@ -29,6 +33,13 @@ export default function About() {
           trading, cryptocurrency, and financial markets in a clear and
           practical way. The goal is to help beginners understand core concepts
           without hype, shortcuts, or unrealistic promises.
+        </p>
+
+        <p className="mt-4 text-zinc-600">
+          The site is designed for learners who want to understand market
+          structure, trading risk, and crypto systems before committing serious
+          capital. The focus is on practical understanding rather than
+          prediction, hype, or short-term excitement.
         </p>
 
         <section className="mt-8 space-y-4">
@@ -83,6 +94,13 @@ export default function About() {
             className="rounded-lg border border-zinc-200 px-4 py-2 text-sm hover:bg-zinc-50"
           >
             Contact
+          </Link>
+
+          <Link
+            href="/privacy-policy"
+            className="rounded-lg border border-zinc-200 px-4 py-2 text-sm hover:bg-zinc-50"
+          >
+            Privacy Policy
           </Link>
         </div>
       </main>

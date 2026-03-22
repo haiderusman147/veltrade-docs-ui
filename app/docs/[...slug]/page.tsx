@@ -1,6 +1,8 @@
-import AdUnit from "@/components/AdUnit";
 import Toc from "@/components/TOC";
+import { getExistingDocHrefs } from "@/lib/content-index.server";
 import { getDocBySlug } from "@/lib/docs.server";
+import { NAV } from "@/lib/nav";
+import { filterNavByExisting } from "@/lib/nav-filter";
 import { slugify } from "@/lib/toc";
 import type { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote/rsc";
@@ -9,13 +11,23 @@ import React from "react";
 
 type PropsWithChildren = { children?: React.ReactNode };
 
-function flattenNav(nav: any[]) {
+function flattenNav(nav: { title: string; href?: string; children?: any[] }[]) {
   const out: { title: string; href: string }[] = [];
-  for (const section of nav) {
-    for (const item of section.children ?? []) {
-      if (item?.href) out.push({ title: item.title, href: item.href });
+
+  const walk = (
+    items: { title: string; href?: string; children?: any[] }[],
+  ) => {
+    for (const item of items) {
+      if (item.href) {
+        out.push({ title: item.title, href: item.href });
+      }
+      if (item.children?.length) {
+        walk(item.children);
+      }
     }
-  }
+  };
+
+  walk(nav);
   return out;
 }
 
@@ -30,6 +42,31 @@ function toText(node: React.ReactNode): string {
   }
 
   return "";
+}
+
+function getRelatedDocs(
+  currentHref: string,
+  slug: string[],
+  flat: { title: string; href: string }[],
+  limit = 4,
+) {
+  const currentSection = slug.length > 1 ? slug[0] : null;
+
+  const sameSection = currentSection
+    ? flat.filter(
+        (item) =>
+          item.href !== currentHref &&
+          item.href.startsWith(`/docs/${currentSection}/`),
+      )
+    : [];
+
+  const fallback = flat.filter(
+    (item) =>
+      item.href !== currentHref &&
+      !sameSection.some((same) => same.href === item.href),
+  );
+
+  return [...sameSection, ...fallback].slice(0, limit);
 }
 
 export async function generateMetadata({
@@ -111,40 +148,16 @@ export default async function DocPage({
     },
   };
 
-  // You can later move this flattening logic to a shared helper if needed
-  const flat = [
-    { title: "Introduction", href: "/docs/introduction" },
-    { title: "Trading Basics", href: "/docs/trading/basics" },
-    {
-      title: "Trading vs Investing",
-      href: "/docs/trading/trading-vs-investing",
-    },
-    { title: "Order Types", href: "/docs/trading/order-types" },
-    { title: "Risk Management", href: "/docs/trading/risk-management" },
-    { title: "What is Crypto?", href: "/docs/crypto/what-is-crypto" },
-    { title: "What is an Exchange?", href: "/docs/crypto/what-is-an-exchange" },
-    { title: "Wallets: Hot vs Cold", href: "/docs/crypto/wallets-hot-vs-cold" },
-    { title: "Crypto Trading Fees", href: "/docs/crypto/fees" },
-    { title: "Security Checklist", href: "/docs/crypto/security-checklist" },
-    { title: "Common Crypto Scams", href: "/docs/crypto/common-scams" },
-    { title: "Stablecoins Explained", href: "/docs/crypto/stablecoins" },
-    { title: "Best Trading Apps", href: "/docs/platforms/best-trading-apps" },
-    {
-      title: "Best Crypto Exchanges",
-      href: "/docs/platforms/best-crypto-exchanges",
-    },
-    { title: "Spot vs Futures", href: "/docs/platforms/spot-vs-futures" },
-    {
-      title: "How Much Money to Start",
-      href: "/docs/trading/how-much-money-to-start",
-    },
-  ];
+  const existing = getExistingDocHrefs();
+  const filteredNav = filterNavByExisting(NAV, existing);
+  const flat = flattenNav(filteredNav);
 
   const currentHref = "/docs/" + slug.join("/");
   const idx = flat.findIndex((x) => x.href === currentHref);
 
   const prev = idx > 0 ? flat[idx - 1] : null;
   const next = idx >= 0 && idx < flat.length - 1 ? flat[idx + 1] : null;
+  const related = getRelatedDocs(currentHref, slug, flat, 4);
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-[1fr_220px]">
@@ -164,8 +177,6 @@ export default async function DocPage({
               <p className="mt-3 text-zinc-600">{doc.description}</p>
             ) : null}
 
-            <AdUnit slot="1111111111" />
-
             <div className="mt-4 text-sm text-zinc-500">
               {doc.readingMinutes} min read
               {doc.lastUpdated ? ` • Last updated ${doc.lastUpdated}` : ""}
@@ -176,7 +187,20 @@ export default async function DocPage({
             <MDXRemote source={doc.content} components={components} />
           </article>
 
-          <AdUnit slot="2222222222" />
+          <div className="mt-10 rounded-2xl border border-zinc-200 bg-white p-5">
+            <div className="text-sm font-semibold">Related topics</div>
+            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {related.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-lg px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50 hover:text-zinc-900"
+                >
+                  {item.title}
+                </Link>
+              ))}
+            </div>
+          </div>
 
           <div className="mt-12 border-t border-zinc-200 pt-6">
             <div className="text-sm font-semibold">Continue learning</div>
@@ -221,8 +245,6 @@ export default async function DocPage({
               )}
             </div>
           </div>
-
-          <AdUnit slot="3333333333" />
 
           <div className="mt-10 rounded-2xl border border-zinc-200 bg-white p-5">
             <div className="text-sm font-semibold">Educational purpose</div>

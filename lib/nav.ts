@@ -10,7 +10,7 @@ export const NAV: NavItem[] = [
     children: [
       { title: "Introduction", href: "/docs/introduction" },
       { title: "How to Use This Site", href: "/docs/getting-started/how-to-use" },
-      { title: "Glossary", href: "/docs/getting-started/glossary" },
+      
     ],
   },
   {
