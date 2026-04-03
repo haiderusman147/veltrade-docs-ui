@@ -1,3 +1,4 @@
+import AdsterraNativeBanner from "@/components/AdsterraNativeBanner";
 import { getExistingDocHrefs } from "@/lib/content-index.server";
 import { getAllDocMetas } from "@/lib/docs.server";
 import { NAV } from "@/lib/nav";
@@ -94,6 +95,10 @@ export default function DocsIndexPage() {
             </div>
           </Link>
         </div>
+      </section>
+
+      <section className="mt-8">
+        <AdsterraNativeBanner />
       </section>
 
       {/* Categories */}

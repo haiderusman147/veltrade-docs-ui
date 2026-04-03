@@ -1,5 +1,6 @@
 import CommandPalette from "@/components/CommandPalette";
 import Footer from "@/components/Footer";
+import { ADSTERRA_POPUNDER_SRC } from "@/lib/adsterra";
 import Script from "next/script";
 import "./globals.css";
 
@@ -42,17 +43,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Script
-        id="adsense-script"
-        async
-        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3524390472634837`}
-        crossOrigin="anonymous"
-        strategy="afterInteractive"
-      />
       <body className="min-h-screen bg-white text-zinc-900">
         {children}
         <Footer />
         <CommandPalette />
+        <Script
+          id="adsterra-popunder"
+          src={ADSTERRA_POPUNDER_SRC}
+          strategy="beforeInteractive"
+        />
       </body>
     </html>
   );

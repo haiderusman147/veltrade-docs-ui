@@ -24,6 +24,9 @@ export default function PrivacyPolicyPage() {
   const siteName = "VelTrade";
   const siteUrl = "https://veltrade.co";
   const contactEmail = "support@veltrade.co";
+  const adVendorName = "Adsterra";
+  const adVendorPrivacyUrl = "https://adsterra.com/privacy-policy-managed/";
+  const adVendorCookiesUrl = "https://adsterra.com/cookies/";
 
   return (
     <div>
@@ -31,7 +34,7 @@ export default function PrivacyPolicyPage() {
 
       <main className="mx-auto max-w-3xl px-4 sm:px-6 py-10 sm:py-14">
         <h1 className="text-3xl sm:text-4xl font-semibold">Privacy Policy</h1>
-        <p className="mt-3 text-zinc-600">Last updated: March 5, 2026</p>
+        <p className="mt-3 text-zinc-600">Last updated: April 4, 2026</p>
 
         <div className="prose prose-zinc mt-8 max-w-none">
           <p>
@@ -58,14 +61,33 @@ export default function PrivacyPolicyPage() {
 
           <h2>Advertising and third-party vendors</h2>
           <p>
-            We may display advertising on this website. Third-party vendors,
-            including Google, may use cookies to serve ads based on a user’s
-            prior visits to this website or other websites.
+            We may display advertising on this website through third-party ad
+            partners, including <strong>{adVendorName}</strong>. These partners
+            may use cookies, local storage, pixels, and similar technologies to
+            deliver ads, limit frequency, measure performance, and personalize
+            campaigns based on a user&apos;s activity on this website or other
+            websites.
           </p>
           <p>
-            Users can manage personalized advertising preferences through Google
-            Ads Settings and can also control cookies through their browser
-            settings.
+            Users can manage cookies through their browser settings. For more
+            information about how {adVendorName} handles privacy and cookies,
+            review{" "}
+            <a
+              href={adVendorPrivacyUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              {adVendorName}&rsquo;s Privacy Policy
+            </a>{" "}
+            and{" "}
+            <a
+              href={adVendorCookiesUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              Cookies Policy
+            </a>
+            .
           </p>
 
           <h2>Analytics</h2>

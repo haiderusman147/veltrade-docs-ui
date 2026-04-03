@@ -1,3 +1,4 @@
+import AdsterraNativeBanner from "@/components/AdsterraNativeBanner";
 import Toc from "@/components/TOC";
 import { getExistingDocHrefs } from "@/lib/content-index.server";
 import { getDocBySlug } from "@/lib/docs.server";
@@ -181,6 +182,10 @@ export default async function DocPage({
               {doc.readingMinutes} min read
               {doc.lastUpdated ? ` • Last updated ${doc.lastUpdated}` : ""}
             </div>
+          </div>
+
+          <div className="mb-8">
+            <AdsterraNativeBanner />
           </div>
 
           <article className="prose prose-zinc max-w-none prose-sm sm:prose-base">

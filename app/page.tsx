@@ -1,3 +1,4 @@
+import AdsterraNativeBanner from "@/components/AdsterraNativeBanner";
 import StatsStrip from "@/components/StatsStrip";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -65,6 +66,10 @@ export default function Home() {
       </section>
 
       <StatsStrip />
+
+      <section className="mt-8">
+        <AdsterraNativeBanner />
+      </section>
 
       {/* Quick paths */}
       <section className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
