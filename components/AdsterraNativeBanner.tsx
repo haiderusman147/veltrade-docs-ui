@@ -37,7 +37,7 @@ export default function AdsterraNativeBanner() {
     >
       <div className="mb-3 flex items-center justify-between">
         <span className="text-xs font-medium text-zinc-500">Sponsored</span>
-        <span className="text-xs text-zinc-400">Adsterra</span>
+        <span className="text-xs text-zinc-400">Ad</span>
       </div>
 
       <div
